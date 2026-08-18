@@ -24,7 +24,40 @@ pages["structure"]=()=>wrap("Reference","Project Structure",`<p class="lead">Eac
 pages["body-builder"]=()=>wrap("Reference","Body Builder Pattern",`<p class="lead">This is one of the most distinctive ideas in CrusaderArch: lower layers can define what exists while higher layers provide how it is rendered.</p><h2>The problem</h2>${code("Avoid:\nexample_router → example_battles")}<h2>The solution</h2>${code("example_battles → example_router\n\nrouter defines contract\nfeature provides body")}<p>The router can define a page/route shell and delegate its body to a registered builder. The feature owns its implementation and registers it when the application is composed.</p><div class="grid"><div class="card"><b>Lower coupling</b><p>Router does not import every feature.</p></div><div class="card"><b>Feature ownership</b><p>Feature owns its UI and behavior.</p></div><div class="card"><b>Stable contracts</b><p>Lower layers can remain stable while features evolve.</p></div></div>`,["example","Example Application"],["structure","Project Structure"]);
 pages["example"]=()=>wrap("Reference","Example Application",`<p class="lead">The reference project is named <code>example</code>, so its microservices use the <code>example_</code> prefix.</p>${code("example_localization\nexample_shared_dependencies\nexample_router\nexample_widgets\nexample_base\nexample_battles")}<h2>Example Battles</h2><p>The feature demonstrates feature-owned repositories, models, presentation code, native platform integration and Pigeon APIs.</p>${code("@HostApi()\nabstract class BattlesToNativeApis {\n  List<Battle> getBattles();\n}\n\n@FlutterApi()\nabstract class BattleFromNativeApis {\n  void battleSateChanged(String state);\n}")}<p>Its plugin configuration includes Android and iOS plugin classes, showing how a feature can own its native boundary.</p>`,["faq","FAQ"],["body-builder","Body Builder"]);
 pages["faq"]=()=>wrap("Reference","FAQ",`<h3>Is CrusaderArch a framework?</h3><p>No. It is an architecture and reference implementation built with standard Dart/Flutter package and plugin mechanisms.</p><h3>Does every app need it?</h3><p>No. It is intended for larger, long-lived applications where team boundaries and independent releases justify the additional structure.</p><h3>Are these backend microservices?</h3><p>No. The term describes independently developed/versioned client modules. They are not the same thing as backend network microservices.</p><h3>Can I replace Cloudsmith?</h3><p>Yes. The registry is replaceable; independent publishing and versioning are the architectural requirements.</p><h3>Where do new features go?</h3><p>Normally Layer 5, as a new Flutter plugin repository.</p><h3>Can I rename example_?</h3><p>Yes. Replace the prefix with your project's name, for example <code>x_battles</code>.</p>`,null,["example","Example"]);
-function render(){let k=location.hash.replace(/^#\\/?/,"");if(!(k in pages))k="";A.innerHTML=pages[k]();document.querySelectorAll("nav a").forEach(x=>x.classList.toggle("active",x.getAttribute("href")==="#/"+k));document.querySelectorAll(".copy").forEach(b=>b.onclick=()=>{navigator.clipboard.writeText(b.parentElement.querySelector("code").textContent);b.textContent="Copied";setTimeout(()=>b.textContent="Copy",900)});document.getElementById("side").classList.remove("open");scrollTo(0,0)}
+function render() {
+  let k = location.hash.replace(/^#\/?/, "");
+
+  if (!(k in pages)) {
+    k = "";
+  }
+
+  A.innerHTML = pages[k]();
+
+  document.querySelectorAll("nav a").forEach(x => {
+    x.classList.toggle(
+      "active",
+      x.getAttribute("href") === "#/" + k
+    );
+  });
+
+  document.querySelectorAll(".copy").forEach(b => {
+    b.onclick = () => {
+      const codeElement = b.parentElement.querySelector("code");
+
+      navigator.clipboard.writeText(codeElement.textContent);
+
+      b.textContent = "Copied";
+
+      setTimeout(() => {
+        b.textContent = "Copy";
+      }, 900);
+    };
+  });
+
+  document.getElementById("side").classList.remove("open");
+
+  window.scrollTo(0, 0);
+}
 document.getElementById("search").oninput=e=>{let q=e.target.value.toLowerCase();document.querySelectorAll("nav a").forEach(a=>a.style.display=!q||a.textContent.toLowerCase().includes(q)?"":"none")};
 document.getElementById("menu").onclick=()=>document.getElementById("side").classList.toggle("open");
 document.getElementById("theme").onclick=()=>document.documentElement.classList.toggle("light");
