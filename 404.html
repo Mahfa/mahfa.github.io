@@ -1,1 +1,17 @@
-<!doctype html><meta charset="utf-8"><script>location.replace("./#/")</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CrusaderArch Docs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      sessionStorage.setItem(
+        "ca-redirect",
+        location.pathname + location.search + location.hash,
+      );
+      var base = document.querySelector("base");
+      location.replace((base && base.href) || "/");
+    </script>
+  </head>
+  <body></body>
+</html>
