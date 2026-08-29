@@ -1,0 +1,10 @@
+{
+  "name": "CrusaderArch Docs",
+  "short_name": "CrusaderArch",
+  "description": "CrusaderArch — a layered micro-service architecture for scalable Flutter applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#171614",
+  "theme_color": "#171614",
+  "icons": []
+}
